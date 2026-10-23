@@ -42,3 +42,14 @@ html,body{margin:0;min-height:100%;background:linear-gradient(#dfe0f5,#c9cbe8);f
 .gc .ic{font-size:44px;text-align:center}.gc b{font-size:16px}.gc small{color:#777;font-size:12px}
 .gc.soon{opacity:.6;filter:grayscale(.6);pointer-events:none}
 .tag{position:absolute;top:8px;right:8px;background:#ff8a00;color:#fff;font-size:11px;font-weight:800;border-radius:8px;padding:2px 6px}
+.base{aspect-ratio:1;border-radius:22%;background:var(--t);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.base .gem{width:78%;height:78%;border-radius:50%;transition:transform .15s}
+.gem.right{width:92%;height:92%;box-shadow:0 0 0 2px #fff,0 0 6px 2px #fff8;animation:pop .3s}
+.gem.sel{transform:scale(1.25);box-shadow:0 0 0 3px #ff8a00,0 0 10px #ff8a00;z-index:2}
+.hl{outline:3px dashed #ff8a00;outline-offset:-1px;animation:blink 1s infinite}
+@keyframes blink{50%{outline-color:#fff}}
+.trayarea{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.tray9{width:42%;max-width:170px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 4px 0 #a9abc8;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.tray9.locked{background:#9a9cb5;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;text-align:center;cursor:pointer;min-height:110px}
+.sl{aspect-ratio:1;border-radius:50%;background:#e6e7f0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sl .gem{width:100%;height:100%;border-radius:50%}
