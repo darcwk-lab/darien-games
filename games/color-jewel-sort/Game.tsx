@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { LEVELS } from "@/levels";
+import { LEVELS } from "./levels";
 
 type Tray = (string | null)[];
-type St = { filled: boolean[]; slots: (Tray | null)[]; queue: string[]; extra: boolean };
+type St = { filled: boolean[]; slots: (Tray | null)[]; queue: string[]; extra: boolean; shelf: string[] };
+const SHELF = 7;
 type Save = { level: number; maxLevel: number; coins: number; magnet: number; brush: number; slot: number };
 const DEF: Save = { level: 1, maxLevel: 1, coins: 200, magnet: 2, brush: 2, slot: 2 };
-const KEY = "bead-puzzle-save-v1";
+const KEY = "variant-cjs-save-v1";
 const PRICE = 100;
 
 function shuffle<T>(a: T[]) { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
@@ -34,7 +35,7 @@ export default function Game() {
     const need = cells.filter(c => c !== ".");
     let q = shuffle(need); const slots: (Tray | null)[] = [];
     for (let i = 0; i < 3; i++) { if (i < 2) { const [t, r] = take(q); slots.push(t); q = r; } else slots.push(null); }
-    setSt({ filled: cells.map(c => c === "."), slots, queue: q, extra: false }); setHist([]); setWin(false); setHint("点击下方托盘，豆子会飞到画上可放置的位置");
+    setSt({ filled: cells.map(c => c === "."), slots, queue: q, extra: false, shelf: [] }); setHist([]); setWin(false); setHint("点击下方托盘，豆子会飞到画上可放置的位置");
   };
   useEffect(() => { if (loaded) start(); /* eslint-disable-next-line */ }, [lv, loaded]);
 
@@ -49,12 +50,12 @@ export default function Game() {
     for (let i = 0; i < openCount(s); i++) if (!slots[i] || slots[i]!.every(b => !b)) { const [t, r] = take(q); slots[i] = t; q = r; }
     return { ...s, slots, queue: q };
   };
-  const canMove = (s: St) => s.slots.some(t => t && t.some(b => b && s.filled.some((f, i) => !f && cells[i] === b && isOpen(s.filled, i))));
+  const canMove = (s: St) => s.shelf.length < SHELF || s.shelf.some(b => s.filled.some((f, i) => !f && cells[i] === b && isOpen(s.filled, i))) || s.slots.some(t => t && t.some(b => b && s.filled.some((f, i) => !f && cells[i] === b && isOpen(s.filled, i))));
   const commit = (n: St) => {
     setHist(h => [...h.slice(-30), st!]);
     n = refill(n); setSt(n);
     if (n.filled.every(Boolean)) { setWin(true); setSave(s => ({ ...s, coins: s.coins + 50 + lv.id * 10, maxLevel: Math.max(s.maxLevel, Math.min(lv.id + 1, LEVELS.length)) })); return; }
-    setHint(canMove(n) ? "" : "没有可放的豆子了～试试「洗牌」、撤销或道具（不会失败哦）");
+    setHint(canMove(n) ? "" : "暂存架满了～试试「洗牌」、撤销或道具（不会失败哦）");
   };
 
   const tapTray = (k: number) => {
@@ -74,20 +75,30 @@ export default function Game() {
     if (!n) { setHint("这个托盘暂时没有能放的位置"); return; }
     const slots = [...st.slots]; slots[k] = tray; commit({ ...st, filled: f, slots });
   };
+  const spot = (f: boolean[], c: string) => f.findIndex((v, j) => !v && cells[j] === c && isOpen(f, j));
+  const tapGem = (k: number, b: number) => {
+    if (!st || win) return; const c = st.slots[k]?.[b]; if (!c) return;
+    const f = [...st.filled]; const slots = st.slots.map(t => t && [...t]); slots[k]![b] = null;
+    const i = spot(f, c); let shelf = st.shelf;
+    if (i >= 0) f[i] = true; else { if (shelf.length >= SHELF) { setHint("暂存架已满"); return; } shelf = [...shelf, c]; }
+    // shelf gems auto-drop when a spot opens
+    let m = true; while (m) { m = false; for (let s2 = 0; s2 < shelf.length; s2++) { const j = spot(f, shelf[s2]); if (j >= 0) { f[j] = true; shelf = shelf.filter((_, x) => x !== s2); m = true; break; } } }
+    commit({ ...st, filled: f, slots, shelf });
+  };
   const useMagnet = (c: string) => {
     if (!st) return;
     const f = st.filled.map((v, i) => v || cells[i] === c);
     const slots = st.slots.map(t => t && t.map(b => (b === c ? null : b)));
     setMagnetMode(false); setSave(s => ({ ...s, magnet: s.magnet - 1 }));
-    commit({ ...st, filled: f, slots, queue: st.queue.filter(b => b !== c) });
+    commit({ ...st, filled: f, slots, shelf: st.shelf.filter(b => b !== c), queue: st.queue.filter(b => b !== c) });
   };
   const doShuffle = () => {
     if (!st) return;
-    const all = shuffle([...st.slots.flatMap(t => (t || []).filter(Boolean) as string[]), ...st.queue]);
+    const all = shuffle([...st.shelf, ...st.slots.flatMap(t => (t || []).filter(Boolean) as string[]), ...st.queue]);
     // put playable beads first so a shuffle always helps
     const playable = new Set(cells.filter((c, i) => !st.filled[i] && isOpen(st.filled, i)));
     const q = [...all.filter(b => playable.has(b)), ...all.filter(b => !playable.has(b))];
-    commit({ ...st, slots: st.slots.map(() => null), queue: q });
+    commit({ ...st, shelf: [], slots: st.slots.map(() => null), queue: q });
   };
   const boost = (k: "magnet" | "brush" | "slot") => {
     if (!st) return;
@@ -106,7 +117,7 @@ export default function Game() {
     <div className="app">
       <div className="top">
         <button className="pill" onClick={() => setMenu(true)}>Lv {lv.id}</button>
-        <div className="title">{lv.name} · 无计时</div>
+        <a className="pill" href="/" style={{textDecoration:"none"}}>🏠</a><div className="title">Color Jewel Sort · {lv.name}</div>
         <div className="pill coin"><i />{save.coins}</div>
       </div>
       <div className="barrow"><div className="bar"><div style={{ width: pct + "%" }} /></div>{pct}%</div>
@@ -120,10 +131,11 @@ export default function Game() {
           if (k === 2 && !st.extra) return <div key={k} className="slot locked" onClick={() => boost("slot")}>➕<br />额外托盘</div>;
           const t = st.slots[k];
           return <div key={k} className={`slot ${brushMode ? "sel" : ""}`} onClick={() => tapTray(k)}>
-            {(t || Array(9).fill(null)).map((b, j) => b ? <div key={j} className="bead" style={{ ["--c" as string]: lv.palette[b], borderRadius: "50%", outline: magnetMode ? "2px solid #ff8a00" : "" }} onClick={e => { if (magnetMode) { e.stopPropagation(); useMagnet(b); } }} /> : <div key={j} className="hole" />)}
+            {(t || Array(9).fill(null)).map((b, j) => b ? <div key={j} className="bead" style={{ ["--c" as string]: lv.palette[b], borderRadius: "50%", outline: magnetMode ? "2px solid #ff8a00" : "" }} onClick={e => { if (brushMode) return; e.stopPropagation(); if (magnetMode) useMagnet(b); else tapGem(k, j); }} /> : <div key={j} className="hole" />)}
           </div>;
         })}
       </div>
+      <div className="shelf">{Array.from({ length: SHELF }, (_, i) => st.shelf[i] ? <div key={i} className="bead sg" style={{ ["--c" as string]: lv.palette[st.shelf[i]] }} /> : <div key={i} className="sg hole" />)}</div>
       <div className="queue">剩余托盘：{Math.ceil(st.queue.length / 9)}</div>
       <div className="boost">
         <button className="bt" onClick={() => boost("slot")}>🧺<span>{save.slot || "+"}</span><small>加托盘</small></button>
@@ -143,7 +155,7 @@ export default function Game() {
       {menu && <div className="modal" onClick={() => setMenu(false)}><div className="card" onClick={e => e.stopPropagation()}>
         <h3>选择关卡</h3>
         <div className="grid">{LEVELS.map(l => <button key={l.id} className="lv" disabled={l.id > save.maxLevel} onClick={() => { setSave(s => ({ ...s, level: l.id })); setMenu(false); }}>{l.id}</button>)}</div>
-        <p style={{ fontSize: 12, color: "#777" }}>规则：点击托盘，豆子会放到同色且「靠边或挨着已放豆子」的位置（亮圈）。放不下的留在托盘里。卡住时可洗牌/撤销，永不失败、没有计时。</p>
+        <p style={{ fontSize: 12, color: "#777" }}>规则：点一颗宝石，它会放到画上同色且「靠边或挨着已放宝石」的位置（亮圈）；暂时没位置就进入暂存架（7格），有位置时自动落下。点托盘空白处＝整盘尝试放置。卡住时可洗牌/撤销，永不失败、没有计时。</p>
         <button className="btn gray" onClick={() => setMenu(false)}>关闭</button>
       </div></div>}
     </div>

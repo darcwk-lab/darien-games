@@ -14,5 +14,5 @@ function gen(n,f){const a=[];for(let y=0;y<n;y++){let r='';for(let x=0;x<n;x++)r
 L[8][1]=gen(18,(x,y,n)=>{const cx=8.5,dx=(x-cx)/6,dy=(y-9)/8;const d=dx*dx+dy*dy;if(d>1)return 'b';const ix=(x-cx)/4,iy=(y-10)/6;if(ix*ix+iy*iy<1)return (y==12&&(x==8||x==9))?'o':'w';if(y==5&&(x==6||x==11))return 'w';if(y==7&&(x==8||x==9))return 'o';if(y>=16)return 'o';return 'k'});
 L[9][1]=gen(20,(x,y,n)=>{const cx=9.5,cy=8.5,dx=x-cx,dy=y-cy,r=Math.hypot(dx,dy),a=Math.atan2(dy,dx);if(y>12&&(x==9||x==10))return 'g';if(y==15&&x>=6&&x<=13&&Math.abs(x-9.5)>1)return 'l';if(r<2.3)return 'y';if(r<2.8+3.6*Math.abs(Math.cos(3*a))&&y<=14)return r<4.5?'p':'s';return y>17?'n':'b'});
 L.forEach(([name,rows],i)=>{const used=[...new Set(rows.join(''))].filter(c=>c!=='.');const pal={};used.forEach(c=>pal[c]=P[c]);
-fs.writeFileSync(`levels/level${i+1}.json`,JSON.stringify({id:i+1,name,palette:pal,rows},null,1));});
+fs.writeFileSync(`games/color-jewel-sort/levels/level${i+1}.json`,JSON.stringify({id:i+1,name,palette:pal,rows},null,1));});
 fs.writeFileSync('levels/index.ts',L.map((_,i)=>`import l${i+1} from './level${i+1}.json';`).join('\n')+`\nexport type LevelDef={id:number;name:string;palette:Record<string,string>;rows:string[]};\nexport const LEVELS:LevelDef[]=[${L.map((_,i)=>'l'+(i+1)).join(',')}] as LevelDef[];\n`);

@@ -33,3 +33,12 @@ html,body{margin:0;min-height:100%;background:linear-gradient(#dfe0f5,#c9cbe8);f
 .hint{text-align:center;font-size:13px;color:#555;min-height:18px}
 .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
 .lv{aspect-ratio:1;border-radius:12px;border:none;font-weight:800;font-size:16px;background:#22c55e;color:#fff}.lv:disabled{background:#ccc}
+.shelf{display:flex;justify-content:center;gap:6px;background:#fff8;border-radius:14px;padding:6px}
+.sg{width:30px;height:30px;border-radius:50%}.sg.hole{background:#e6e7f0}
+.hub h1{text-align:center;margin:18px 0 4px;font-size:32px;background:linear-gradient(90deg,#ff3fb4,#9b3fe0,#3fa9ff);-webkit-background-clip:text;color:transparent}
+.hub p.sub{text-align:center;color:#666;margin:0 0 14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.gc{background:#fff;border-radius:18px;padding:14px;box-shadow:0 4px 0 #a9abc8;text-decoration:none;color:#333;display:flex;flex-direction:column;gap:6px;position:relative}
+.gc .ic{font-size:44px;text-align:center}.gc b{font-size:16px}.gc small{color:#777;font-size:12px}
+.gc.soon{opacity:.6;filter:grayscale(.6);pointer-events:none}
+.tag{position:absolute;top:8px;right:8px;background:#ff8a00;color:#fff;font-size:11px;font-weight:800;border-radius:8px;padding:2px 6px}
