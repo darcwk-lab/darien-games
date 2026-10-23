@@ -1,0 +1,35 @@
+{
+ "id": 10,
+ "name": "花朵",
+ "palette": {
+  "b": "#3fa9ff",
+  "s": "#ffb8c8",
+  "p": "#ff3fb4",
+  "y": "#ffd93d",
+  "g": "#2fd07f",
+  "l": "#a6e03a",
+  "n": "#a0673a"
+ },
+ "rows": [
+  "bbbbbbbbbbbbbbbbbbbb",
+  "bbbbbbbbbbbbbbbbbbbb",
+  "bbbbbbbbbbbbbbbbbbbb",
+  "bbbbbbbsbbbbsbbbbbbb",
+  "bbbbbbsssbbsssbbbbbb",
+  "bbbbbbsppppppsbbbbbb",
+  "bbbbbbbppppppbbbbbbb",
+  "bbbbbsppyyyyppsbbbbb",
+  "bbbbssppyyyyppssbbbb",
+  "bbbbssppyyyyppssbbbb",
+  "bbbbbsppyyyyppsbbbbb",
+  "bbbbbbbppppppbbbbbbb",
+  "bbbbbbsppppppsbbbbbb",
+  "bbbbbbsssggsssbbbbbb",
+  "bbbbbbbsbggbsbbbbbbb",
+  "bbbbbblllgglllbbbbbb",
+  "bbbbbbbbbggbbbbbbbbb",
+  "bbbbbbbbbggbbbbbbbbb",
+  "nnnnnnnnnggnnnnnnnnn",
+  "nnnnnnnnnggnnnnnnnnn"
+ ]
+}

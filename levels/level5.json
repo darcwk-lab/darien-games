@@ -1,0 +1,23 @@
+{
+ "id": 5,
+ "name": "小猫",
+ "palette": {
+  "k": "#3a3a44",
+  "l": "#a6e03a",
+  "w": "#f3ecd8",
+  "g": "#2fd07f",
+  "s": "#ffb8c8"
+ },
+ "rows": [
+  "kllllllllk",
+  "kkllllllkk",
+  "kwkkkkkkwk",
+  "kkkkkkkkkk",
+  "kkgkkkkgkk",
+  "kkgkkkkgkk",
+  "kkkkskkkkk",
+  "kkkskskkkk",
+  "lkkkkkkkkl",
+  "llkkkkkkll"
+ ]
+}

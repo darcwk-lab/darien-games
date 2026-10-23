@@ -1,0 +1,29 @@
+{
+ "id": 8,
+ "name": "火箭",
+ "palette": {
+  "b": "#3fa9ff",
+  "w": "#f3ecd8",
+  "r": "#ff5a6e",
+  "o": "#ffa020",
+  "y": "#ffd93d"
+ },
+ "rows": [
+  "bbbbbbbbbbbbbbbb",
+  "bbbbbbbwbbbbbbbb",
+  "bbbbbbwwwbbbbbbb",
+  "bbbbbwwwwwbbbbbb",
+  "bbbbbwrrrwbbbbbb",
+  "bbbbwwrbrwwbbbbb",
+  "bbbbwwrbrwwbbbbb",
+  "bbbbwwrrrwwbbbbb",
+  "bbbbwwwwwwwbbbbb",
+  "bbbbwwwwwwwbbbbb",
+  "bbbrwwwwwwwrbbbb",
+  "bbrrwwwwwwwrrbbb",
+  "bbrrbwwwwwbrrbbb",
+  "bbbbbbooooobbbbb",
+  "bbbbbbyoyoybbbbb",
+  "bbbbbbbybybbbbbb"
+ ]
+}

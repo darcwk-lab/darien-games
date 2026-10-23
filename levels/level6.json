@@ -1,0 +1,25 @@
+{
+ "id": 6,
+ "name": "西瓜",
+ "palette": {
+  "b": "#3fa9ff",
+  "g": "#2fd07f",
+  "l": "#a6e03a",
+  "r": "#ff5a6e",
+  "k": "#3a3a44"
+ },
+ "rows": [
+  "bbbbbbbbbbbb",
+  "bbbggggggbbb",
+  "bgglllllllgb",
+  "gllrrrrrrllg",
+  "glrrkrrkrrlg",
+  "glrrrrrrrrlg",
+  "glrrrkrrkrlg",
+  "bglrrrrrrlgb",
+  "bbgllrrllgbb",
+  "bbbgglllggbb",
+  "bbbbbgggbbbb",
+  "bbbbbbbbbbbb"
+ ]
+}

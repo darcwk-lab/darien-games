@@ -1,0 +1,17 @@
+{
+ "id": 1,
+ "name": "小草莓",
+ "palette": {
+  "g": "#2fd07f",
+  "r": "#ff5a6e",
+  "w": "#f3ecd8"
+ },
+ "rows": [
+  "..gg..",
+  ".grrg.",
+  "rrwrrr",
+  "rrrrwr",
+  ".rwrr.",
+  "..rr.."
+ ]
+}

@@ -1,0 +1,21 @@
+{
+ "id": 4,
+ "name": "蘑菇",
+ "palette": {
+  "r": "#ff5a6e",
+  "w": "#f3ecd8",
+  "k": "#3a3a44"
+ },
+ "rows": [
+  "...rrrr...",
+  "..rrwwrr..",
+  ".rrrwwrrr.",
+  "rrwrrrrwwr",
+  "rwwrrrrwwr",
+  "rrrrrrrrrr",
+  "...wkwk...",
+  "...wwww...",
+  "...wwww...",
+  "....ww...."
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "id": 7,
+ "name": "彩虹",
+ "palette": {
+  "b": "#3fa9ff",
+  "r": "#ff5a6e",
+  "o": "#ffa020",
+  "y": "#ffd93d",
+  "g": "#2fd07f",
+  "l": "#a6e03a",
+  "w": "#f3ecd8"
+ },
+ "rows": [
+  "bbbbbbbbbbbbbb",
+  "bbbbrrrrrrbbbb",
+  "bbbrooooooorbb",
+  "bbroyyyyyyorbb",
+  "broyggggggyorb",
+  "royglllllgyorb",
+  "royglbbbblgyor",
+  "royglbwwblgyor",
+  "royglbwwwlgyor",
+  "roygbwwwwwgyor",
+  "bbbwwwwwwwwwbb",
+  "bbwwwwwwwwwwwb",
+  "bbbbbbbbbbbbbb",
+  "bbbbbbbbbbbbbb"
+ ]
+}

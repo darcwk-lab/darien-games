@@ -1,0 +1,20 @@
+{
+ "id": 3,
+ "name": "小鸡",
+ "palette": {
+  "b": "#3fa9ff",
+  "y": "#ffd93d",
+  "k": "#3a3a44",
+  "o": "#ffa020"
+ },
+ "rows": [
+  "bbyyyybb",
+  "byyyyyyb",
+  "yykyykyy",
+  "yyyooyyy",
+  "yyyyyyyy",
+  "byyyyyyb",
+  "bbobbobb",
+  "bbbbbbbb"
+ ]
+}

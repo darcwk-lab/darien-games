@@ -1,0 +1,12 @@
+import l1 from './level1.json';
+import l2 from './level2.json';
+import l3 from './level3.json';
+import l4 from './level4.json';
+import l5 from './level5.json';
+import l6 from './level6.json';
+import l7 from './level7.json';
+import l8 from './level8.json';
+import l9 from './level9.json';
+import l10 from './level10.json';
+export type LevelDef={id:number;name:string;palette:Record<string,string>;rows:string[]};
+export const LEVELS:LevelDef[]=[l1,l2,l3,l4,l5,l6,l7,l8,l9,l10] as LevelDef[];

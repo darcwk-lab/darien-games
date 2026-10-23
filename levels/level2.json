@@ -1,0 +1,17 @@
+{
+ "id": 2,
+ "name": "爱心",
+ "palette": {
+  "p": "#ff3fb4",
+  "w": "#f3ecd8"
+ },
+ "rows": [
+  ".pp.pp.",
+  "ppppppp",
+  "ppwpppp",
+  "ppppppp",
+  ".ppppp.",
+  "..ppp..",
+  "...p..."
+ ]
+}
